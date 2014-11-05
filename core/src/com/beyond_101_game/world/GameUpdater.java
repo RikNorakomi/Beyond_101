@@ -2,7 +2,7 @@ package com.beyond_101_game.world;
 
 import com.badlogic.gdx.math.Rectangle;
 
-public class GameWorld {
+public class GameUpdater {
 
 	private Rectangle rect = new Rectangle(0, 0, 32, 32);
 	
@@ -10,7 +10,7 @@ public class GameWorld {
 		System.out.println(delta);
 		
 		rect.x++;
-		if(rect.x > 480) {
+		if(rect.x > 800) {
 			rect.x = 0;
 		}
 	}

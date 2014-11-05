@@ -3,23 +3,23 @@ package com.beyond_101_game.graphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.beyond_101_game.world.GameRenderer;
-import com.beyond_101_game.world.GameWorld;
+import com.beyond_101_game.world.GameUpdater;
 
 public class GameScreen implements Screen {
 
-	private GameWorld world;
+	private GameUpdater updater;
 	private GameRenderer renderer;
 	
 	public GameScreen() {
 		Gdx.app.log("Beyond", "Game Screen Atached!");
 		
-		world = new GameWorld();
-		renderer = new GameRenderer(world);
+		updater = new GameUpdater();
+		renderer = new GameRenderer(updater);
 	}
 	
 	@Override
 	public void render(float delta) {
-		world.update(delta);
+		updater.update(delta);
 		renderer.render();
 	}
 
