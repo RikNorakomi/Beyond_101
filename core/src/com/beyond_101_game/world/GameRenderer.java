@@ -20,7 +20,7 @@ public class GameRenderer {
 		//this.updater = updater;
 		
 		TmxMapLoader loader = new TmxMapLoader();
-		map = loader.load("Test.tmx");
+		map = loader.load("island_map.tmx");
 		
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
 		

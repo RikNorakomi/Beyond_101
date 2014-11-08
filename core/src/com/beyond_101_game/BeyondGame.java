@@ -18,5 +18,6 @@ public class BeyondGame extends Game {
 	public void dispose() {
 		super.dispose();
 		AssetLoader.dispose();
+		
 	}
 }
