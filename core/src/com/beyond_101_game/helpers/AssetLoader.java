@@ -1,8 +1,14 @@
 package com.beyond_101_game.helpers;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class AssetLoader {
 	
-	public static void load() {
+	public Texture player;
+	
+	public void load() {
+		
+		 player = new Texture("img/player.jpg");
 		
 	}
 	

@@ -12,6 +12,7 @@ public class BeyondGame extends Game {
 
 	GameScreen gameScreen;
 	LogoSplashScreen logoSplashScreen;
+//	AssetLoader assetLoader;
 	
 	
 	@Override
@@ -19,9 +20,12 @@ public class BeyondGame extends Game {
 		
 		 logoSplashScreen = new LogoSplashScreen(this);
 		 gameScreen = new GameScreen(this);
+		 
+		AssetLoader assetLoader = new AssetLoader();
+		assetLoader.load();
 		
 		Gdx.app.log("Beyond", "Created");
-		AssetLoader.load();
+		
 		setScreen(logoSplashScreen);
 	}
 	
