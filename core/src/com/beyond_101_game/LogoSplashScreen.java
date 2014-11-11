@@ -19,7 +19,6 @@ public class LogoSplashScreen implements Screen {
 	private boolean switchScreen;
 	public Texture LOGO;
 	
-	
 	 public LogoSplashScreen(BeyondGame game) {
 		this.game = game;
 	}
@@ -39,7 +38,6 @@ public class LogoSplashScreen implements Screen {
 	}
 	
 	public void fadeInLogo() {
-
 		if (fadein == true && pause == false) {
 			if (timer < fadeTime) {
 				timer += 1;
@@ -68,7 +66,6 @@ public class LogoSplashScreen implements Screen {
 			} else {
 				pause = true;
 				timer = 0;
-
 			}
 		}
 
@@ -78,7 +75,6 @@ public class LogoSplashScreen implements Screen {
 			if (timer == 90) {
 				switchScreen = true;
 			}
-
 		}
 
 		sb.setColor(1, 1, 1, alpha);
@@ -91,7 +87,6 @@ public class LogoSplashScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -100,31 +95,25 @@ public class LogoSplashScreen implements Screen {
 		// System.out.println("gameoverscreen show() switchscreen set to false");
 		switchScreen = false;
 		LOGO = new Texture("placeholder-logo.jpg");
-		
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
 	} 
-
 }
