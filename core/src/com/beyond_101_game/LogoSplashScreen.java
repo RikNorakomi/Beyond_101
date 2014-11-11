@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.beyond_101_game.graphics.GameScreen;
 
 public class LogoSplashScreen implements Screen {
 	
@@ -85,7 +84,7 @@ public class LogoSplashScreen implements Screen {
 		sb.setColor(1, 1, 1, alpha);
 		// sb.draw(BLACK, 0, 0, WIDTH, HEIGHT);
 		sb.draw(LOGO, (Gdx.graphics.getWidth() / 2) - 0.5f * LOGO.getWidth(),
-				Gdx.graphics.getHeight() / 2 - 0.2f * LOGO.getHeight(),
+				Gdx.graphics.getHeight() / 2 - 0.5f * LOGO.getHeight(),
 				LOGO.getWidth(), LOGO.getHeight());
 	}
 
