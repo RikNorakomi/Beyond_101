@@ -2,15 +2,18 @@ package com.beyond_101_game.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.beyond_101_game.BeyondGame;
 import com.beyond_101_game.world.GameRenderer;
 import com.beyond_101_game.world.GameUpdater;
 
 public class GameScreen implements Screen {
+	BeyondGame game;
 
 	private GameUpdater updater;
 	private GameRenderer renderer;
 	
-	public GameScreen() {
+	public GameScreen(BeyondGame game) {
+		this.game = game;
 		Gdx.app.log("Beyond", "Game Screen Atached!");
 		
 		updater = new GameUpdater();
