@@ -7,9 +7,7 @@ public class AssetLoader {
 	public Texture player;
 	
 	public void load() {
-		
-		 player = new Texture("img/player.jpg");
-		
+		 player = new Texture("img/player.png");	
 	}
 	
 	public static void dispose() {

@@ -23,14 +23,13 @@ public class GameRenderer {
 
 	private Texture playerImg;
 
-	public GameRenderer(GameUpdater updater,
-			OrthogonalTiledMapRenderer mapRenderer, OrthographicCamera cam) {
+	public GameRenderer(GameUpdater updater, OrthogonalTiledMapRenderer mapRenderer, OrthographicCamera cam) {
 
 		// this.updater = updater;
 		this.cam = cam;
 		this.mapRenderer = mapRenderer;
 
-		playerImg = new Texture("img/player.jpg");
+		playerImg = new Texture("img/player.png");
 		sb = new SpriteBatch();
 
 	}
@@ -44,9 +43,7 @@ public class GameRenderer {
 		mapRenderer.render();
 
 		sb.begin();
-		sb.draw(playerImg, Player.getX(), Player.getY());
+			sb.draw(playerImg, Player.getX(), Player.getY());
 		sb.end();
-
 	}
-
 }

@@ -22,9 +22,12 @@ public class GameScreen implements Screen {
 
 	private GameUpdater updater;
 	private GameRenderer renderer;
+	
 	private Player player;
+	
 	public static TiledMap map;
 	public TiledMapTileLayer tilelayer;
+	
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera cam;
 
@@ -32,14 +35,14 @@ public class GameScreen implements Screen {
 		this.game = game;
 
 		Gdx.app.log("Beyond", "Game Screen Atached!");
-
 	}
 
 	@Override
 	public void show() {
 		createCamera();
 		createMap();
-		tilelayer = (TiledMapTileLayer) map.getLayers().get("Ground");
+		
+		tilelayer = (TiledMapTileLayer) map.getLayers().get("Player");
 		player = new Player(tilelayer, map);
 
 		updater = new GameUpdater();
@@ -52,7 +55,6 @@ public class GameScreen implements Screen {
 		updater.update(delta);
 		player.update(delta);
 		renderer.render();
-
 	}
 
 	public void processKeyboardInput() {
@@ -75,14 +77,12 @@ public class GameScreen implements Screen {
 	public void createCamera() {
 		cam = new OrthographicCamera();
 		cam.setToOrtho(false, 800, 480);
-
 	}
 
 	public void createMap() {
 		TmxMapLoader loader = new TmxMapLoader();
 		map = loader.load("island_map.tmx");
 		mapRenderer = new OrthogonalTiledMapRenderer(map);
-
 	}
 
 	@Override

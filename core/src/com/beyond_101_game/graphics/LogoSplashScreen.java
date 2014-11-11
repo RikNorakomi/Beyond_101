@@ -1,10 +1,11 @@
-package com.beyond_101_game;
+package com.beyond_101_game.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.beyond_101_game.BeyondGame;
 
 public class LogoSplashScreen implements Screen {
 	
@@ -29,11 +30,11 @@ public class LogoSplashScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if (switchScreen){
-			game.setScreen(game.gameScreen);
+			game.setScreen(game.getGameScreen());
 		}
 		
 		sb.begin();
-		fadeInLogo();
+			fadeInLogo();
 		sb.end();
 	}
 	
