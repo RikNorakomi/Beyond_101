@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="Game Boy - Legend of Zelda Links Awakening - Overworld Tileset" tilewidth="16" tileheight="16" spacing="1" margin="1">
-  <image source="Game Boy - Legend of Zelda Links Awakening - Overworld Tileset.png" width="410" height="427"/>
-  <terraintypes>
-   <terrain name="New Terrain" tile="331"/>
-  </terraintypes>
-  <tile id="325">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="327">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="349">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="375">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
+ <tileset firstgid="1" name="Beyond101" tilewidth="16" tileheight="16">
+  <image source="Beyond101.png" width="160" height="96"/>
  </tileset>
- <layer name="Tile Layer 1" width="200" height="100">
+ <layer name="Ground" width="200" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt3Utu00AAgOHkTA1nIBJwBipRdt2z4CDlAD0IC16HAE4BrLFJLI0Gjz12nIwz/Sx96itxrJH/zjjpY7/dbPYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAPzcrOAZYi3h70Xzu5VHpY4PSuq1rovNqBccGS3hofAhMuW+7tWuqrouulSl9xG2NKT1ePB1hG3PuH6+pQrvGs+NthvahD0p7iMydL2KpNsJ11tJ9aIQl9bXRvd1H70811sfbrT5Yr9Sc0WfO/of6yL0G0QeljLVx6v5TfdxtD3NHzj70QSnxeirsZYn99/Ux9bldfXBppz4vlUsfXJsl54cx+uApeJx5v7HXPnL2oQ/W6DEydNu+rW2gNfX5q/j5Xn2wJnEXfW20PzOyyzB0DrdfT23hY2mDNRnrYs738zmNhJ1ohNKeH9+m1lJdG2OviU91E4h76R7bGovSXvd8LlxHndpFuOX0sguOY+5jlh5T6vEu+njptVQJpceUei29jtIHNdEH/K9b++eeg+8n3HaOU/ZfeiypTzxvnOv8P3dX+uAcalhX6YNz0Qek6QPSpvbxabPZfG58aXxtfDu+/vdx5HVA1x9co6l9fG86+NH4GbSxBqXHkTq92R5+P7yVcx7+apr43fizojb0wSVc87VI6bGjft1cEp97Y9cWa1N6HKnLfaD9ONXJVDnX5Oe4bi89ntQl7qNzreut0uNJXe63/Y2E1+4ppVvQB5eSmkeG5M4xufsb20/Oeqz0OFK/2+2hk9tA3+1y5pi7CY9r/oA0fUCaPmCYNqjVUn8TXhvUpO//UpU+JigpbmLJ/2UI18w8AQA8RX8Bk114bA==
+   eJzt281Kw0AUBtBglxVcVfQVxF0V3//NTKCFEJqfppk7N3oWZ9eUFu7HNzNJDk3THAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDIsfVS4VrIrpvvz9ZH6/liybwfL5/tXysn/BX9+X4a6Gfl1twfZ66TE/ZsbL7HDPMyd233eRlhr07N8mys8dr6SfA/YY3S+XhP8B9hrZL5eKQ7nIVR2717j4jucBZGFtnWVlNnYTJCtNL5WDrXU+fLMkItpfOxZK7vWePJCFFK7z2Gcz12f/HejMoIESK6Yy4rS+4v3uLMmNLOrbemTka2yJgOobRaHfIo9+SJ0HXIV7O/HrG+ItJe1lpdb3R51h1E28NaS29QS/YOseegtswdojuoTT5gXOY1lnyQQdYOkQ8yyNoh8kEWGTvEMyVkkTEfMkIWWfMhI9QW+V7IWvYiRFvyjmsWOoQoe8qFDiFa5r3GGM9iEWVv+ZANokTtxa/vbdyy9F6kdz+ItmV3TGVgaqbPzXRW5IJatsrHVmue4e+xlqKWrdZWW85w/9kv2aCWjNm4OhX6Xlhqbs1fc698LvS9sMZwTTN1xmSvzH/UZeS7GZ/7a9/IBQAAAAAAAADZ/QKaIf+2
   </data>
  </layer>
 </map>
