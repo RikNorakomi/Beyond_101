@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
 			DIRECTION = 2;
 		} else if(Gdx.input.isKeyPressed(Keys.UP)) {
 			DIRECTION = 1;
-		}
+		} else DIRECTION = 0;
 	}
 	
 	private void renderMap() {
