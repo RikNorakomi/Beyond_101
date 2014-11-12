@@ -66,7 +66,8 @@ public class GameScreen implements Screen {
 			DIRECTION = 2;
 		} else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
 			DIRECTION = 1;
-		}
+
+}
 	}
 
 	@Override
