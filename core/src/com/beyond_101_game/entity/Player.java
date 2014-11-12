@@ -33,32 +33,32 @@ public class Player {
 		// with enemies
 	}
 
-	public static float getX() {
+	public float getX() {
 		return x;
 	}
 
-	public static float getY() {
+	public float getY() {
 		return y;
 	}
 
 	public void update(float delta) {
 		handleMovement();
 	}
-
+	
 	public void handleMovement() {
-		if (DIRECTION == 1) {
+		if ((DIRECTION == 1) && (y <= 380)) {
 			y += movementSpeed;
 			DIRECTION = 0;
 		}
-		if (DIRECTION == 2) {
+		if ((DIRECTION == 2) && (x <= 650)) {
 			x += movementSpeed;
 			DIRECTION = 0;
 		}
-		if (DIRECTION == 3) {
+		if ((DIRECTION == 3) && (y > 100)) {
 			y -= movementSpeed;
 			DIRECTION = 0;
 		}
-		if (DIRECTION == 4) {
+		if ((DIRECTION == 4) && (x >= 150)) {
 			x -= movementSpeed;
 			DIRECTION = 0;
 		}

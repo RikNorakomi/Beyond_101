@@ -2,88 +2,119 @@ package com.beyond_101_game.graphics;
 
 import static com.beyond_101_game.helpers.Variables.DIRECTION;
 
-
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.beyond_101_game.BeyondGame;
 import com.beyond_101_game.entity.Player;
-import com.beyond_101_game.world.GameRenderer;
-import com.beyond_101_game.world.GameUpdater;
 
 public class GameScreen implements Screen {
+	
 	BeyondGame game;
-
-	private GameUpdater updater;
-	private GameRenderer renderer;
 	
 	private Player player;
+	private Texture playerImg;
 	
 	public static TiledMap map;
 	public TiledMapTileLayer tilelayer;
-	
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private OrthographicCamera cam;
+	private BitmapFont font;
+	private SpriteBatch sb;
 
 	public GameScreen(BeyondGame game) {
 		this.game = game;
-
-		Gdx.app.log("Beyond", "Game Screen Atached!");
 	}
-
+	
+	//Called once when this Becomes the Main Screen of the Game.
 	@Override
 	public void show() {
-		createCamera();
-		createMap();
+		createElements();
+		font = new BitmapFont();
+			font.setScale(0.8f);
+			font.setColor(Color.BLACK);
+		playerImg = new Texture("img/player.png");
 		
+		sb = new SpriteBatch();
 		tilelayer = (TiledMapTileLayer) map.getLayers().get("Player");
 		player = new Player(tilelayer, map);
-
-		updater = new GameUpdater();
-		renderer = new GameRenderer(updater, mapRenderer, cam);
+		
+		//Gdx.input.setInputProcessor(new InputHandler(this, player));
 	}
 
 	@Override
 	public void render(float delta) {
-		processKeyboardInput();
-		updater.update(delta);
+		Gdx.gl.glClearColor(25f, 25f, 35f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		keyboardInput();
+		renderMap();
+			sb.begin();
+				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 475);
+				sb.draw(playerImg, player.getX(), player.getY());
+			sb.end();
+		update(delta);
+	}
+	
+	private void update(float delta) {
 		player.update(delta);
-		renderer.render();
+		cam.update();
 	}
-
-	public void processKeyboardInput() {
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+	
+	private void keyboardInput() {
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 			DIRECTION = 4;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+		} else if(Gdx.input.isKeyPressed(Keys.DOWN)) {
 			DIRECTION = 3;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+		} else if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			DIRECTION = 2;
-		} else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+		} else if(Gdx.input.isKeyPressed(Keys.UP)) {
 			DIRECTION = 1;
-
-}
+		}
 	}
-
+	
+	private void renderMap() {
+		mapRenderer.setView(cam);
+		mapRenderer.render();
+		
+		if((player.getX() >= 650) && (DIRECTION == 2)) {
+			cam.translate(1f, 0);
+		}
+		if((player.getX() <= 150) && (DIRECTION == 4)) {
+			cam.translate(-1f, 0);
+		}
+		if((player.getY() >= 380) && (DIRECTION == 1)) {
+			cam.translate(0, 1f);
+		}
+		if((player.getY() <= 100) && (DIRECTION == 3)) {
+			cam.translate(0, -1f);
+		}
+	}
+	
+	//Creating the Camera and the Map.
+	private void createElements() {
+		//Camera-
+		cam = new OrthographicCamera();
+		cam.setToOrtho(false, 800, 480);
+		
+		//Map-
+		map = new TmxMapLoader().load("island_map.tmx");
+		mapRenderer = new OrthogonalTiledMapRenderer(map);
+	}
+	
 	@Override
 	public void resize(int width, int height) {
 		// Gdx.app.log("Beyond", "Resizing");
-	}
-
-	public void createCamera() {
-		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 800, 480);
-	}
-
-	public void createMap() {
-		TmxMapLoader loader = new TmxMapLoader();
-		map = loader.load("island_map.tmx");
-		mapRenderer = new OrthogonalTiledMapRenderer(map);
 	}
 
 	@Override
