@@ -16,10 +16,10 @@ public class BeyondGame extends Game {
 		logoSplashScreen = new LogoSplashScreen(this);
 		gameScreen = new GameScreen(this);
 		 
-		AssetLoader assetLoader = new AssetLoader();
-		assetLoader.load();
+	//	AssetLoader assetLoader = new AssetLoader();
+	//	assetLoader.load();
 		
-		setScreen(logoSplashScreen);
+		setScreen(gameScreen);
 	}
 	
 	@Override

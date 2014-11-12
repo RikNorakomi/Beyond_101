@@ -20,7 +20,7 @@ public class Player {
 	public static float x;
 	public static float y;
 
-	private float movementSpeed = 1;
+	private float movementSpeed = 100;
 
 	public Player(TiledMapTileLayer layer, TiledMap map) {
 		this.map = map;
@@ -42,24 +42,24 @@ public class Player {
 	}
 
 	public void update(float delta) {
-		handleMovement();
+		handleMovement(delta);
 	}
 	
-	public void handleMovement() {
+	public void handleMovement(float delta) {
 		if ((DIRECTION == 1) && (y <= 380)) {
-			y += movementSpeed;
+			y += movementSpeed * delta;
 			DIRECTION = 0;
 		}
 		if ((DIRECTION == 2) && (x <= 650)) {
-			x += movementSpeed;
+			x += movementSpeed * delta;
 			DIRECTION = 0;
 		}
 		if ((DIRECTION == 3) && (y > 100)) {
-			y -= movementSpeed;
+			y -= movementSpeed* delta;
 			DIRECTION = 0;
 		}
 		if ((DIRECTION == 4) && (x >= 150)) {
-			x -= movementSpeed;
+			x -= movementSpeed* delta;
 			DIRECTION = 0;
 		}
 	}
