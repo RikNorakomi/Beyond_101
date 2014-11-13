@@ -1,6 +1,6 @@
 package com.beyond_101_game.graphics;
 
-import static com.beyond_101_game.helpers.Variables.DIRECTION;
+import static com.beyond_101_game.helpers.Variables.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -59,10 +59,12 @@ public class GameScreen implements Screen {
 		
 		keyboardInput();
 		renderMap();
+		//sb.setProjectionMatrix(cam.combined);
+		// if you combine camera players coordinates become world coordinates and not screen coordinates
 			sb.begin();
-				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 475);
-				font.draw(sb, "Player (x): " + (int)player.getX(), 5, 450);
-				font.draw(sb, "Player (y): " + (int)player.getY(), 5, 435);
+				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 175);
+				font.draw(sb, "Player (x): " + (int)player.getX(), 5, 150);
+				font.draw(sb, "Player (y): " + (int)player.getY(), 5, 135);
 				sb.draw(player.getSprite(), player.getX(), player.getY());
 			sb.end();
 		update(delta);
@@ -89,16 +91,19 @@ public class GameScreen implements Screen {
 		mapRenderer.setView(cam);
 		mapRenderer.render();
 		
-		if((player.getX() >= 650) && (DIRECTION == 2)) {
+		
+		// ToDO: cam translation should be made be made relative (not absolute)
+		// to take care ofdifferent screensizes
+		if((player.getX() >= PLAYER_MAXX) && (DIRECTION == 2)) {
 			cam.translate(1f, 0);
 		}
-		if((player.getX() <= 150) && (DIRECTION == 4)) {
+		if((player.getX() <= PLAYER_MINX) && (DIRECTION == 4)) {
 			cam.translate(-1f, 0);
 		}
-		if((player.getY() >= 380) && (DIRECTION == 1)) {
+		if((player.getY() >= PLAYER_MAXY) && (DIRECTION == 1)) {
 			cam.translate(0, 1f);
 		}
-		if((player.getY() <= 100) && (DIRECTION == 3)) {
+		if((player.getY() <= PLAYER_MINY) && (DIRECTION == 3)) {
 			cam.translate(0, -1f);
 		}
 	}
@@ -106,8 +111,9 @@ public class GameScreen implements Screen {
 	//Creating the Camera and the Map.
 	private void createElements() {
 		//Camera-
-		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 400, 240);
+		cam = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		cam.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+	//	cam.position.set(cam.viewportWidth/2, cam.viewportHeight/2,0);
 		
 		//Map-
 		map = new TmxMapLoader().load("island_map.tmx");
