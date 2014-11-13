@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
 	private void createElements() {
 		//Camera-
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 800, 480);
+		cam.setToOrtho(false, 400, 240);
 		
 		//Map-
 		map = new TmxMapLoader().load("island_map.tmx");
