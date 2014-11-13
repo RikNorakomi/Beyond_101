@@ -23,7 +23,6 @@ public class GameScreen implements Screen {
 	BeyondGame game;
 	
 	private Player player;
-	private Texture playerImg;
 	
 	public static TiledMap map;
 	public TiledMapTileLayer tilelayer;
@@ -43,9 +42,9 @@ public class GameScreen implements Screen {
 		font = new BitmapFont();
 			font.setScale(0.8f);
 			font.setColor(Color.BLACK);
-		playerImg = new Texture("img/player.png");
 		
 		sb = new SpriteBatch();
+		sb.setProjectionMatrix(cam.combined);
 		tilelayer = (TiledMapTileLayer) map.getLayers().get("Player");
 		player = new Player(tilelayer, map);
 		
@@ -62,7 +61,9 @@ public class GameScreen implements Screen {
 		renderMap();
 			sb.begin();
 				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 475);
-				sb.draw(playerImg, player.getX(), player.getY());
+				font.draw(sb, "Player (x): " + (int)player.getX(), 5, 450);
+				font.draw(sb, "Player (y): " + (int)player.getY(), 5, 435);
+				sb.draw(player.getSprite(), player.getX(), player.getY());
 			sb.end();
 		update(delta);
 	}
