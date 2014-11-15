@@ -20,7 +20,7 @@ public class Player {
 
 	public static float x;
 	public static float y;
-	public static float playerWidth, playerHeight;
+	public static float playerWidth, playerHeight, topoffsetPlayer;
 	public static float movementSpeed = 70; // needs to be made screen
 											// independant to
 	private boolean rightTileBlocked, leftTileBLocked, topTileBlocked,
@@ -35,8 +35,9 @@ public class Player {
 		this.collisionlayer = layer;
 		sprite = AssetLoader.pDown1;
 
+		topoffsetPlayer = 6;
 		playerWidth = AssetLoader.pDown1.getRegionWidth();
-		playerHeight = AssetLoader.pDown1.getRegionHeight();
+		playerHeight = AssetLoader.pDown1.getRegionHeight() - topoffsetPlayer;
 
 		System.out.println("player width + height = " + playerWidth + " , "
 				+ playerHeight);
