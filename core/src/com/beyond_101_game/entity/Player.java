@@ -1,16 +1,22 @@
 package com.beyond_101_game.entity;
 
-import com.badlogic.gdx.Gdx;
+import static com.beyond_101_game.helpers.Variables.DIRECTION;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MAXX;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MAXY;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MINX;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MINY;
+import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_X;
+import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_Y;
+import static com.beyond_101_game.helpers.Variables.VIEWPORT_HEIGHT;
+import static com.beyond_101_game.helpers.Variables.VIEWPORT_WIDTH;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.beyond_101_game.helpers.AssetLoader;
-
-import static com.beyond_101_game.helpers.Variables.*;
 
 public class Player {
 
@@ -23,8 +29,7 @@ public class Player {
 	public static float playerWidth, playerHeight, topoffsetPlayer;
 	public static float movementSpeed = 70; // needs to be made screen
 											// independant to
-	private boolean rightTileBlocked, leftTileBLocked, topTileBlocked,
-			bottomTileBlocked;
+	
 	private TextureRegion sprite;
 
 	private Vector3 screencoordinates, worldcoordinates;
@@ -35,7 +40,7 @@ public class Player {
 		this.collisionlayer = layer;
 		sprite = AssetLoader.pDown1;
 
-		topoffsetPlayer = 6;
+		topoffsetPlayer = 6; // adjustment for collisiondetection: gives a slightly "layered" 3d effect
 		playerWidth = AssetLoader.pDown1.getRegionWidth();
 		playerHeight = AssetLoader.pDown1.getRegionHeight() - topoffsetPlayer;
 
@@ -81,11 +86,7 @@ public class Player {
 	}
 
 	public void handleMapCollision(float delta) {
-		topTileBlocked = false;
-		bottomTileBlocked = false;
-		leftTileBLocked = false;
-		rightTileBlocked = false;
-
+		
 		if (DIRECTION == 1) // moving up
 		{
 			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y
