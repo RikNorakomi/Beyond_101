@@ -44,8 +44,7 @@ public class Player {
 		playerWidth = AssetLoader.pDown1.getRegionWidth();
 		playerHeight = AssetLoader.pDown1.getRegionHeight() - topoffsetPlayer;
 
-		System.out.println("player width + height = " + playerWidth + " , "
-				+ playerHeight);
+		System.out.println("player width + height = " + playerWidth + " , " + playerHeight);
 		x = VIEWPORT_WIDTH / 2;
 		y = VIEWPORT_HEIGHT / 2;
 
@@ -60,7 +59,6 @@ public class Player {
 	}
 
 	public void update(float delta) {
-
 		handleMovement(delta);
 		handleCoordinates();
 		handleMapCollision(delta);
@@ -74,7 +72,6 @@ public class Player {
 		screencoordinates.y = y;
 		worldcoordinates.x = x + SCROLLTRACKER_X;
 		worldcoordinates.y = y + SCROLLTRACKER_Y;
-
 	}
 
 	public Vector3 getWorldcoordinates() {
@@ -86,7 +83,6 @@ public class Player {
 	}
 
 	public void handleMapCollision(float delta) {
-		
 		if (DIRECTION == 1) // moving up
 		{
 			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y
@@ -157,7 +153,6 @@ public class Player {
 	}
 
 	public boolean isCellBLocked(float x, float y) {
-
 		Cell cell = collisionlayer.getCell(
 				(int) (x / (collisionlayer.getTileWidth())),
 				(int) (y / (collisionlayer.getTileHeight())));
