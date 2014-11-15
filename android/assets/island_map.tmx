@@ -7,7 +7,22 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="60">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="61">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="90">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -16,11 +31,6 @@
  <layer name="Ground" width="200" height="100">
   <data encoding="base64" compression="zlib">
    eJzt3E1r1UAUBuCpXVZQxIoi7lyICCJVFGm1u6677v//HyZ4Q0+HmST3K5nqs3jwqkmgcN6emcnMPU0pnQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMBCzjrPVrgXWtfX96fOx87TjTn1fra5Nt4rJ/wrYn0/ycSslOr+bOI+OeExq9V3TZ6XqXv762WEx+o8lev6bedn8K5yXX59ft2rzvcGfk7YRSkffa1fdk46N5s/f6SHecldbq7tr4sZedPAzwi7yvMxZONm4zZ8LjlJ9zm63Xx+n/bvHdbCWFs+94jZuN24C59LYo76a2M+dukd1sJoRewdeTbu0n29342IObpK++VjbC1MRlhazMeH9Le2Yx+YI+Yoz8fcuh5bX5YR1jLkI87Ht8lGzZCPOXVd6hm1tTAZYSmxLofecZXue0D0u6KWj2Gta6jvsffxtfWB4TkywhpiXX7uvEz1et82H3lOalnJx1QxG/EZeUasGXNsF53XaV5Gds3HWE8pjafybNQyooewhHxsU8vIIfJR6inx3eI2cxrv5FlC30O+pod9ZJiLtOR550syvmIdcaxVysf1zH87lvg+vs+z3sHShrHW1Fx9Dfu8j4dDmOoha4+tzDlYW4s9RO+gFaX9Ji30DvmgBXGMtVQPuR75e1zTlQ9a0FIPkQ9as/Q8fey9o3zQoqGHrJ2PuK/EnhJa0Uo+ZIQWHTofv0b+b86+LhmhFcO5kNJe8zWZi7Cm/Izrtr1jrEfse1++P1EPYSmls9+H7B19bb8o2ObdSuwdeghLyr/DZO55jLlZiL/387Mmtbz8yp6ZP8NeLJZS+o6GXTNRy8Icpff1ssGaSnPxqfnA1O/2kuHcRkl+xrfWe5z9YGn7rOPm2RjLwFhNX6RyVuSCtfX52HZcNYyn8mwcon7z8/DGUqxlGFvlvWNsfHXs+UDc+yUbrCV+N9zUPvax+fcxavj8SM+FufIxfz4vnlqfPeac4OJIz4Vd5GOasTUmc2X+R31GvqV63Q/9Ri4AAAAAAAAAaN0fbdIzwg==
-  </data>
- </layer>
- <layer name="Player" width="200" height="100">
-  <data encoding="base64" compression="zlib">
-   eJztwYEAAAAAw6D5Ux/gClUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAbOI8AAQ==
   </data>
  </layer>
 </map>

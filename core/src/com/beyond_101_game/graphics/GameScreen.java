@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beyond_101_game.BeyondGame;
 import com.beyond_101_game.entity.Player;
 
@@ -30,6 +31,11 @@ public class GameScreen implements Screen {
 	private OrthographicCamera cam;
 	private BitmapFont font;
 	private SpriteBatch sb;
+	private int camScrollSpeed =80;
+	
+	
+	
+	Viewport viewport;
 
 	public GameScreen(BeyondGame game) {
 		this.game = game;
@@ -38,15 +44,16 @@ public class GameScreen implements Screen {
 	//Called once when this Becomes the Main Screen of the Game.
 	@Override
 	public void show() {
+		DEBUG = true;
 		createElements();
 		font = new BitmapFont();
-			font.setScale(0.8f);
+			font.setScale(0.7f);
 			font.setColor(Color.BLACK);
 		
 		sb = new SpriteBatch();
 		sb.setProjectionMatrix(cam.combined);
-		tilelayer = (TiledMapTileLayer) map.getLayers().get("Player");
-		player = new Player(tilelayer, map);
+		tilelayer = (TiledMapTileLayer) map.getLayers().get("Ground");
+		player = new Player(tilelayer, map, cam);
 		
 		//Gdx.input.setInputProcessor(new InputHandler(this, player));
 	}
@@ -58,21 +65,38 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		keyboardInput();
-		renderMap();
-		//sb.setProjectionMatrix(cam.combined);
+		renderMap(delta);
+	//	sb.setProjectionMatrix(cam.combined);
 		// if you combine camera players coordinates become world coordinates and not screen coordinates
-			sb.begin();
-				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 175);
-				font.draw(sb, "Player (x): " + (int)player.getX(), 5, 150);
-				font.draw(sb, "Player (y): " + (int)player.getY(), 5, 135);
-				sb.draw(player.getSprite(), player.getX(), player.getY());
+			sb.begin();			
+			if (DEBUG) showDebugInfo();
+			sb.draw(player.getSprite(), player.getX(), player.getY());
 			sb.end();
 		update(delta);
 	}
-	
-	private void update(float delta) {
+		private void update(float delta) {
 		player.update(delta);
 		cam.update();
+	}
+	
+	public void showDebugInfo(){
+	//	System.out.println("test");
+		font.draw(sb, "F9 = Debug HUD ON/OFF " , 5, 180);
+		font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 165);
+		font.draw(sb, "Player Screen(x): " + (int)player.getScreencoordinates().x, 5, 150);
+		font.draw(sb, "Player Screen(y): " + (int)player.getScreencoordinates().y, 5, 135);
+		font.draw(sb, " scrollTracker x,y: " + (int)SCROLLTRACKER_X + " , " +(int) SCROLLTRACKER_Y, 5, 30);
+	
+		
+		
+		font.draw(sb, "Player World(x): " + (int)player.getWorldcoordinates().x, 5, 120);
+		font.draw(sb, "Player World(y): " + (int)player.getWorldcoordinates().y, 5, 105);
+		
+		TiledMapTileLayer.Cell cell = tilelayer.getCell((int)player.getWorldcoordinates().x / (int) tilelayer.getTileWidth(),
+				(int)player.getWorldcoordinates().y / (int) tilelayer.getTileHeight());
+		font.draw(sb, "Player on Tile ID#: " +cell.getTile().getId(),5 , 20) ;
+			
+		
 	}
 	
 	private void keyboardInput() {
@@ -85,35 +109,65 @@ public class GameScreen implements Screen {
 		} else if(Gdx.input.isKeyPressed(Keys.UP)) {
 			DIRECTION = 1;
 		} else DIRECTION = 0;
+		
+		if(Gdx.input.isKeyJustPressed(Keys.F9)) {
+			if (DEBUG){DEBUG=false;} else DEBUG=true;
+		}
 	}
 	
-	private void renderMap() {
-		mapRenderer.setView(cam);
-		mapRenderer.render();
+	private void renderMap(float delta) {
+		
 		
 		
 		// ToDO: cam translation should be made be made relative (not absolute)
 		// to take care ofdifferent screensizes
+		// Todo: probably add delta multiplication to preven jitter in cam.translate
 		if((player.getX() >= PLAYER_MAXX) && (DIRECTION == 2)) {
-			cam.translate(1f, 0);
+			cam.translate(Player.movementSpeed*delta, 0);
+			SCROLLTRACKER_X += Player.movementSpeed*delta;
 		}
 		if((player.getX() <= PLAYER_MINX) && (DIRECTION == 4)) {
-			cam.translate(-1f, 0);
+			cam.translate(-Player.movementSpeed*delta, 0);
+			SCROLLTRACKER_X -= Player.movementSpeed*delta;
 		}
 		if((player.getY() >= PLAYER_MAXY) && (DIRECTION == 1)) {
-			cam.translate(0, 1f);
+			cam.translate(0, Player.movementSpeed*delta);
+			SCROLLTRACKER_Y += Player.movementSpeed*delta;
 		}
 		if((player.getY() <= PLAYER_MINY) && (DIRECTION == 3)) {
-			cam.translate(0, -1f);
+			cam.translate(0, -Player.movementSpeed*delta);
+			SCROLLTRACKER_Y -= Player.movementSpeed*delta;
 		}
+		
+		mapRenderer.setView(cam);
+		mapRenderer.render();
 	}
 	
 	//Creating the Camera and the Map.
 	private void createElements() {
 		//Camera-
+		//cam = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		//cam.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+		//cam.position.set(cam.viewportWidth, cam.viewportHeight,0);
+		
+		
+		
 		cam = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		cam.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-	//	cam.position.set(cam.viewportWidth/2, cam.viewportHeight/2,0);
+		
+		// set starting position player
+				STARTOFFSET_X = VIEWPORT_WIDTH/2;
+				STARTOFFSET_Y = VIEWPORT_HEIGHT/2;
+		
+		// VIEWPORT DIMENSIONS / 2 sets camera origin to match map origin (0,0 coordinate)
+		// STARTOFFSET_X / Y determine actual starting position on map from origin
+		cam.position.set(VIEWPORT_WIDTH/2 + STARTOFFSET_X , VIEWPORT_HEIGHT/2 + STARTOFFSET_Y ,0);
+		
+		
+		
+		// sets stating variables for scrolltracker
+		SCROLLTRACKER_X += STARTOFFSET_X;
+		SCROLLTRACKER_Y += STARTOFFSET_Y;
 		
 		//Map-
 		map = new TmxMapLoader().load("island_map.tmx");

@@ -13,5 +13,10 @@ public class Variables {
 	public static float PLAYER_MAXY = 0.8f * VIEWPORT_HEIGHT;
 	public static float PLAYER_MINY = 0.2f * VIEWPORT_HEIGHT;
 	
+	public static boolean DEBUG = true;
+	
+	public static float SCROLLTRACKER_X, SCROLLTRACKER_Y;
+	public static float STARTOFFSET_X, STARTOFFSET_Y;
+	
 
 }

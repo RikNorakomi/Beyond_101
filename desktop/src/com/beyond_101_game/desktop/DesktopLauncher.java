@@ -8,6 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 			config.title = "Beyond 101";
+			config.vSyncEnabled=false;
 			config.width = V_WIDTH;
 			config.height = V_HEIGHT;
 		new LwjglApplication(new BeyondGame(), config);
