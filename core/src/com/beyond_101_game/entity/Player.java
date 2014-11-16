@@ -26,10 +26,11 @@ public class Player {
 
 	public static float x;
 	public static float y;
-	public static float playerWidth, playerHeight, topoffsetPlayer;
+	public static float playerWidth, playerHeight, topoffsetPlayer,
+			sideoffsetPlayer;
 	public static float movementSpeed = 70; // needs to be made screen
 											// independant to
-	
+
 	private TextureRegion sprite;
 
 	private Vector3 screencoordinates, worldcoordinates;
@@ -39,8 +40,9 @@ public class Player {
 		this.cam = cam;
 		this.collisionlayer = layer;
 		sprite = AssetLoader.pDown1;
-
-		topoffsetPlayer = 6; // adjustment for collisiondetection: gives a slightly "layered" 3d effect
+		sideoffsetPlayer = 1;
+		topoffsetPlayer = 6; // adjustment for collisiondetection: gives a
+								// slightly "layered" 3d effect
 		playerWidth = AssetLoader.pDown1.getRegionWidth();
 		playerHeight = AssetLoader.pDown1.getRegionHeight() - topoffsetPlayer;
 
@@ -86,12 +88,12 @@ public class Player {
 	}
 
 	public void handleMapCollision(float delta) {
-		
+
 		if (DIRECTION == 1) // moving up
 		{
-			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y
+			if (isCellBLocked(worldcoordinates.x + sideoffsetPlayer, worldcoordinates.y
 					+ playerHeight)
-					|| isCellBLocked(worldcoordinates.x + playerWidth,
+					|| isCellBLocked(worldcoordinates.x + playerWidth - sideoffsetPlayer,
 							worldcoordinates.y + playerHeight)) {
 				System.out.println("cellBlockedTop = true in PLayer");
 
@@ -112,8 +114,8 @@ public class Player {
 
 		if (DIRECTION == 3) // moving down
 		{
-			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y)
-					|| isCellBLocked(worldcoordinates.x + playerWidth,
+			if (isCellBLocked(worldcoordinates.x + sideoffsetPlayer, worldcoordinates.y)
+					|| isCellBLocked(worldcoordinates.x + playerWidth - sideoffsetPlayer,
 							worldcoordinates.y)) {
 				System.out.println("cellBlockedbot = true in PLayer");
 
@@ -124,33 +126,38 @@ public class Player {
 		if (DIRECTION == 4) // moving left
 		{
 			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y)
-					|| isCellBLocked(worldcoordinates.x,
-							worldcoordinates.y + playerHeight)) {
+					|| isCellBLocked(worldcoordinates.x, worldcoordinates.y
+							+ playerHeight)) {
 				System.out.println("cellBlockedleft = true in PLayer");
-			x += movementSpeed * delta;
-		}}
+				x += movementSpeed * delta;
+			}
+		}
 
 	}
 
 	// todo:fix player direction bug
 	public void handleMovement(float delta) {
 		if ((DIRECTION == 1)) {
-			if (y < PLAYER_MAXY) y += movementSpeed * delta;
+			if (y < PLAYER_MAXY)
+				y += movementSpeed * delta;
 			sprite = AssetLoader.pUp1;
 
 		}
-		if ((DIRECTION == 2) ) {
-			if  (x < PLAYER_MAXX) x += movementSpeed * delta;
+		if ((DIRECTION == 2)) {
+			if (x < PLAYER_MAXX)
+				x += movementSpeed * delta;
 			sprite = AssetLoader.pRight1;
 
 		}
 		if ((DIRECTION == 3)) {
-			if (y > PLAYER_MINY) y -= movementSpeed * delta;
+			if (y > PLAYER_MINY)
+				y -= movementSpeed * delta;
 			sprite = AssetLoader.pDown1;
 
 		}
-		if ((DIRECTION == 4) ) {
-			if (x >= PLAYER_MINX) x -= movementSpeed * delta;
+		if ((DIRECTION == 4)) {
+			if (x >= PLAYER_MINX)
+				x -= movementSpeed * delta;
 			sprite = AssetLoader.pLeft1;
 
 		}

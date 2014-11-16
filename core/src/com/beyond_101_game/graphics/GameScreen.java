@@ -1,14 +1,24 @@
 package com.beyond_101_game.graphics;
 
-import static com.beyond_101_game.helpers.Variables.*;
+import static com.beyond_101_game.helpers.Variables.DEBUG;
+import static com.beyond_101_game.helpers.Variables.DIRECTION;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MAXX;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MAXY;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MINX;
+import static com.beyond_101_game.helpers.Variables.PLAYER_MINY;
+import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_X;
+import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_Y;
+import static com.beyond_101_game.helpers.Variables.STARTOFFSET_X;
+import static com.beyond_101_game.helpers.Variables.STARTOFFSET_Y;
+import static com.beyond_101_game.helpers.Variables.VIEWPORT_HEIGHT;
+import static com.beyond_101_game.helpers.Variables.VIEWPORT_WIDTH;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -31,7 +41,7 @@ public class GameScreen implements Screen {
 	private OrthographicCamera cam;
 	private BitmapFont font;
 	private SpriteBatch sb;
-	private int camScrollSpeed =80;
+	//private int camScrollSpeed =80;
 	
 	
 	
@@ -165,7 +175,7 @@ public class GameScreen implements Screen {
 		
 		
 		
-		// sets stating variables for scrolltracker
+		// set starting variables for scrolltrackers
 		SCROLLTRACKER_X += STARTOFFSET_X;
 		SCROLLTRACKER_Y += STARTOFFSET_Y;
 		
