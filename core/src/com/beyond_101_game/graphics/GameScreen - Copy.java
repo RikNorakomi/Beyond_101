@@ -29,7 +29,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beyond_101_game.BeyondGame;
 import com.beyond_101_game.entity.Player;
 
-public class GameScreen implements Screen {
+public class GameScreencopy implements Screen {
 
 	BeyondGame game;
 

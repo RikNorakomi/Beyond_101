@@ -90,22 +90,18 @@ public class GameScreen implements Screen {
 	}
 	
 	public void showDebugInfo(){
-	//	System.out.println("test");
-		font.draw(sb, "F9 = Debug HUD ON/OFF " , 5, 180);
-		font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 165);
-		font.draw(sb, "Player Screen(x): " + (int)player.getScreencoordinates().x, 5, 150);
-		font.draw(sb, "Player Screen(y): " + (int)player.getScreencoordinates().y, 5, 135);
-		font.draw(sb, " scrollTracker x,y: " + (int)SCROLLTRACKER_X + " , " +(int) SCROLLTRACKER_Y, 5, 30);
-	
-		
-		
-		font.draw(sb, "Player World(x): " + (int)player.getWorldcoordinates().x, 5, 120);
-		font.draw(sb, "Player World(y): " + (int)player.getWorldcoordinates().y, 5, 105);
-		
-		TiledMapTileLayer.Cell cell = tilelayer.getCell((int)player.getWorldcoordinates().x / (int) tilelayer.getTileWidth(),
-				(int)player.getWorldcoordinates().y / (int) tilelayer.getTileHeight());
-		font.draw(sb, "Player on Tile ID#: " +cell.getTile().getId(),5 , 20) ;
-			
+		// System.out.println("test");
+				font.draw(sb, "F9 = Debug HUD ON/OFF ", 5, 235);
+				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 215);
+				font.draw(sb, "Player Screen(x): " + (int) player.getScreencoordinates().x, 5, 195);
+				font.draw(sb, "Player Screen(y): " + (int) player.getScreencoordinates().y, 5, 185);
+				font.draw(sb, "Player World(x): " + (int) player.getWorldcoordinates().x, 5, 170);
+				font.draw(sb, "Player World(y): " + (int) player.getWorldcoordinates().y, 5, 160);
+				font.draw(sb, " Scroll Tracker x/y: " + (int) SCROLLTRACKER_X + " , " + (int) SCROLLTRACKER_Y, 5, 140);
+				TiledMapTileLayer.Cell cell = tilelayer.getCell
+					((int) player.getWorldcoordinates().x / (int) tilelayer.getTileWidth(),
+					(int) player.getWorldcoordinates().y / (int) tilelayer.getTileHeight());
+				font.draw(sb, "Player on Tile ID#: " + cell.getTile().getId(), 5, 130);
 		
 	}
 	
