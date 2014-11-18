@@ -3,8 +3,8 @@ package com.beyond_101_game.helpers;
 public class Variables {
 	
 	public static int DIRECTION;
-	public static int V_WIDTH=800;
-	public static int V_HEIGHT=480;
+	public static int V_WIDTH = 800;
+	public static int V_HEIGHT = 480;
 	public static int VIEWPORT_WIDTH = 400;
 	public static int VIEWPORT_HEIGHT = 240;
 	
@@ -17,6 +17,4 @@ public class Variables {
 	
 	public static float SCROLLTRACKER_X, SCROLLTRACKER_Y;
 	public static float STARTOFFSET_X, STARTOFFSET_Y;
-	
-
 }
