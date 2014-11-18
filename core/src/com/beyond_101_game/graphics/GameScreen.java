@@ -1,17 +1,6 @@
 package com.beyond_101_game.graphics;
 
-import static com.beyond_101_game.helpers.Variables.DEBUG;
-import static com.beyond_101_game.helpers.Variables.DIRECTION;
-import static com.beyond_101_game.helpers.Variables.PLAYER_MAXX;
-import static com.beyond_101_game.helpers.Variables.PLAYER_MAXY;
-import static com.beyond_101_game.helpers.Variables.PLAYER_MINX;
-import static com.beyond_101_game.helpers.Variables.PLAYER_MINY;
-import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_X;
-import static com.beyond_101_game.helpers.Variables.SCROLLTRACKER_Y;
-import static com.beyond_101_game.helpers.Variables.STARTOFFSET_X;
-import static com.beyond_101_game.helpers.Variables.STARTOFFSET_Y;
-import static com.beyond_101_game.helpers.Variables.VIEWPORT_HEIGHT;
-import static com.beyond_101_game.helpers.Variables.VIEWPORT_WIDTH;
+import static com.beyond_101_game.helpers.Variables.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -43,8 +32,6 @@ public class GameScreen implements Screen {
 	private SpriteBatch sb;
 	//private int camScrollSpeed =80;
 	
-	
-	
 	Viewport viewport;
 
 	public GameScreen(BeyondGame game) {
@@ -57,13 +44,13 @@ public class GameScreen implements Screen {
 		DEBUG = true;
 		createElements();
 		font = new BitmapFont();
-			font.setScale(0.7f);
+			font.setScale(0.5f);
 			font.setColor(Color.BLACK);
 		
 		sb = new SpriteBatch();
 		sb.setProjectionMatrix(cam.combined);
 		tilelayer = (TiledMapTileLayer) map.getLayers().get("Ground");
-		player = new Player(tilelayer, map, cam);
+		player = new Player(map, tilelayer, cam);
 		
 		//Gdx.input.setInputProcessor(new InputHandler(this, player));
 	}
@@ -78,31 +65,31 @@ public class GameScreen implements Screen {
 		renderMap(delta);
 	//	sb.setProjectionMatrix(cam.combined);
 		// if you combine camera players coordinates become world coordinates and not screen coordinates
-			sb.begin();			
+		sb.begin();			
 			if (DEBUG) showDebugInfo();
-			sb.draw(player.getSprite(), player.getX(), player.getY());
-			sb.end();
+			player.render(sb);
+		sb.end();
 		update(delta);
 	}
-		private void update(float delta) {
+		
+	private void update(float delta) {
 		player.update(delta);
 		cam.update();
 	}
 	
 	public void showDebugInfo(){
 		// System.out.println("test");
-				font.draw(sb, "F9 = Debug HUD ON/OFF ", 5, 235);
-				font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 215);
-				font.draw(sb, "Player Screen(x): " + (int) player.getScreencoordinates().x, 5, 195);
-				font.draw(sb, "Player Screen(y): " + (int) player.getScreencoordinates().y, 5, 185);
-				font.draw(sb, "Player World(x): " + (int) player.getWorldcoordinates().x, 5, 170);
-				font.draw(sb, "Player World(y): " + (int) player.getWorldcoordinates().y, 5, 160);
-				font.draw(sb, " Scroll Tracker x/y: " + (int) SCROLLTRACKER_X + " , " + (int) SCROLLTRACKER_Y, 5, 140);
-				TiledMapTileLayer.Cell cell = tilelayer.getCell
-					((int) player.getWorldcoordinates().x / (int) tilelayer.getTileWidth(),
-					(int) player.getWorldcoordinates().y / (int) tilelayer.getTileHeight());
-				font.draw(sb, "Player on Tile ID#: " + cell.getTile().getId(), 5, 130);
-		
+		font.draw(sb, "F9 = Debug HUD ON/OFF ", 5, 235);
+		font.draw(sb, "FPS: " + Gdx.graphics.getFramesPerSecond(), 5, 215);
+		font.draw(sb, "Player Screen(x): " + (int) player.getScreenCoords().x, 5, 195);
+		font.draw(sb, "Player Screen(y): " + (int) player.getScreenCoords().y, 5, 185);
+		font.draw(sb, "Player World(x): " + (int) player.getWorldCoords().x, 5, 170);
+		font.draw(sb, "Player World(y): " + (int) player.getWorldCoords().y, 5, 160);
+		font.draw(sb, " Scroll Tracker x/y: " + (int) SCROLLTRACKER_X + " , " + (int) SCROLLTRACKER_Y, 5, 140);
+		TiledMapTileLayer.Cell cell = tilelayer.getCell
+			((int) player.getWorldCoords().x / (int) tilelayer.getTileWidth(),
+			(int) player.getWorldCoords().y / (int) tilelayer.getTileHeight());
+		font.draw(sb, "Player on Tile ID#: " + cell.getTile().getId(), 5, 130);	
 	}
 	
 	private void keyboardInput() {
@@ -122,27 +109,24 @@ public class GameScreen implements Screen {
 	}
 	
 	private void renderMap(float delta) {
-		
-		
-		
 		// ToDO: cam translation should be made be made relative (not absolute)
 		// to take care ofdifferent screensizes
 		// Todo: probably add delta multiplication to preven jitter in cam.translate
 		if((player.getX() >= PLAYER_MAXX) && (DIRECTION == 2)) {
-			cam.translate(Player.movementSpeed*delta, 0);
-			SCROLLTRACKER_X += Player.movementSpeed*delta;
+			cam.translate(player.moveSpeed*delta, 0);
+			SCROLLTRACKER_X += player.moveSpeed*delta;
 		}
 		if((player.getX() <= PLAYER_MINX) && (DIRECTION == 4)) {
-			cam.translate(-Player.movementSpeed*delta, 0);
-			SCROLLTRACKER_X -= Player.movementSpeed*delta;
+			cam.translate(-player.moveSpeed*delta, 0);
+			SCROLLTRACKER_X -= player.moveSpeed*delta;
 		}
 		if((player.getY() >= PLAYER_MAXY) && (DIRECTION == 1)) {
-			cam.translate(0, Player.movementSpeed*delta);
-			SCROLLTRACKER_Y += Player.movementSpeed*delta;
+			cam.translate(0, player.moveSpeed*delta);
+			SCROLLTRACKER_Y += player.moveSpeed*delta;
 		}
 		if((player.getY() <= PLAYER_MINY) && (DIRECTION == 3)) {
-			cam.translate(0, -Player.movementSpeed*delta);
-			SCROLLTRACKER_Y -= Player.movementSpeed*delta;
+			cam.translate(0, -player.moveSpeed*delta);
+			SCROLLTRACKER_Y -= player.moveSpeed*delta;
 		}
 		
 		mapRenderer.setView(cam);
@@ -155,9 +139,6 @@ public class GameScreen implements Screen {
 		//cam = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		//cam.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		//cam.position.set(cam.viewportWidth, cam.viewportHeight,0);
-		
-		
-		
 		cam = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		cam.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 		
@@ -168,8 +149,6 @@ public class GameScreen implements Screen {
 		// VIEWPORT DIMENSIONS / 2 sets camera origin to match map origin (0,0 coordinate)
 		// STARTOFFSET_X / Y determine actual starting position on map from origin
 		cam.position.set(VIEWPORT_WIDTH/2 + STARTOFFSET_X , VIEWPORT_HEIGHT/2 + STARTOFFSET_Y ,0);
-		
-		
 		
 		// set starting variables for scrolltrackers
 		SCROLLTRACKER_X += STARTOFFSET_X;
