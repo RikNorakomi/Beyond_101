@@ -11,6 +11,7 @@ import static com.beyond_101_game.helpers.Variables.VIEWPORT_HEIGHT;
 import static com.beyond_101_game.helpers.Variables.VIEWPORT_WIDTH;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -18,120 +19,51 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector3;
 import com.beyond_101_game.helpers.AssetLoader;
 
-public class Player {
+public class Player extends Entity {
+	
+	public Player(TiledMap map, TiledMapTileLayer layer, OrthographicCamera cam) {
+		super(map, layer, cam);
+		
+		this.moveSpeed = 70; 
+		this.sprite = AssetLoader.pDown1;
+		this.sideOffset = 2;
+		this.topOffset = 6; // adjustment for collisiondetection: gives a slightly "layered" 3d effect
+		
+		this.width = AssetLoader.pDown1.getRegionWidth();
+		this.height = AssetLoader.pDown1.getRegionHeight() - topOffset;
 
-	private TiledMapTileLayer collisionlayer;
-	private TiledMap map;
-	private OrthographicCamera cam;
-
-	public static float x;
-	public static float y;
-	public static float playerWidth, playerHeight, topoffsetPlayer,
-			sideoffsetPlayer;
-	public static float movementSpeed = 70; // needs to be made screen
-											// independant to
-
-	private TextureRegion currentFrame;
-
-	private Vector3 screencoordinates, worldcoordinates;
-
-	public Player(TiledMapTileLayer layer, TiledMap map, OrthographicCamera cam) {
-		this.map = map;
-		this.cam = cam;
-		this.collisionlayer = layer;
-		currentFrame = AssetLoader.pDown1;
-		sideoffsetPlayer = 1;
-		topoffsetPlayer = 6; // adjustment for collisiondetection: gives a
-								// slightly "layered" 3d effect
-		playerWidth = AssetLoader.pDown1.getRegionWidth();
-		playerHeight = AssetLoader.pDown1.getRegionHeight() - topoffsetPlayer;
-
-		System.out.println("player width + height = " + playerWidth + " , "
-				+ playerHeight);
-		x = VIEWPORT_WIDTH / 2;
-		y = VIEWPORT_HEIGHT / 2;
+		//System.out.println("player width + height = " + width + " , " + height);
+		this.x = VIEWPORT_WIDTH / 2;
+		this.y = VIEWPORT_HEIGHT / 2;
 
 		// x = V_WIDTH /2;
 		// y = V_HEIGHT /2;
 
-		screencoordinates = new Vector3();
-		worldcoordinates = new Vector3();
+		this.screenCoords = new Vector3();
+		this.worldCoords = new Vector3();
 
-		// rectangle = new Rectangle(); // for futre use collision detection
-		// with enemies
+		// rectangle = new Rectangle(); // for futre use collision detection with enemies
 	}
 
 	public void update(float delta) {
-
+		
+		
 		handleMovement(delta);
 		handleCoordinates();
-		handleMapCollision(delta);
-
-		// reset Direction
+		super.update(delta);
+		
 		DIRECTION = 0;
+	}
+	
+	public void render(SpriteBatch sb) {
+		super.render(sb);
 	}
 
 	public void handleCoordinates() {
-		screencoordinates.x = x;
-		screencoordinates.y = y;
-		worldcoordinates.x = x + SCROLLTRACKER_X;
-		worldcoordinates.y = y + SCROLLTRACKER_Y;
-
-	}
-
-	public Vector3 getWorldcoordinates() {
-		return worldcoordinates;
-	}
-
-	public Vector3 getScreencoordinates() {
-		return screencoordinates;
-	}
-
-	public void handleMapCollision(float delta) {
-
-		if (DIRECTION == 1) // moving up
-		{
-			if (isCellBLocked(worldcoordinates.x + sideoffsetPlayer, worldcoordinates.y
-					+ playerHeight)
-					|| isCellBLocked(worldcoordinates.x + playerWidth - sideoffsetPlayer,
-							worldcoordinates.y + playerHeight)) {
-				System.out.println("cellBlockedTop = true in PLayer");
-
-				y -= movementSpeed * delta;
-			}
-		}
-		if (DIRECTION == 2) // moving right
-		{
-			if (isCellBLocked(worldcoordinates.x + playerWidth,
-					worldcoordinates.y)
-					|| isCellBLocked(worldcoordinates.x + playerWidth,
-							worldcoordinates.y + playerHeight)) {
-				System.out.println("cellBlockedright = true in PLayer");
-
-				x -= movementSpeed * delta;
-			}
-		}
-
-		if (DIRECTION == 3) // moving down
-		{
-			if (isCellBLocked(worldcoordinates.x + sideoffsetPlayer, worldcoordinates.y)
-					|| isCellBLocked(worldcoordinates.x + playerWidth - sideoffsetPlayer,
-							worldcoordinates.y)) {
-				System.out.println("cellBlockedbot = true in PLayer");
-
-				y += movementSpeed * delta;
-			}
-		}
-
-		if (DIRECTION == 4) // moving left
-		{
-			if (isCellBLocked(worldcoordinates.x, worldcoordinates.y)
-					|| isCellBLocked(worldcoordinates.x, worldcoordinates.y
-							+ playerHeight)) {
-				System.out.println("cellBlockedleft = true in PLayer");
-				x += movementSpeed * delta;
-			}
-		}
+		screenCoords.x = x;
+		screenCoords.y = y;
+		worldCoords.x = x + SCROLLTRACKER_X;
+		worldCoords.y = y + SCROLLTRACKER_Y;
 
 	}
 
@@ -139,49 +71,27 @@ public class Player {
 	public void handleMovement(float delta) {
 		if ((DIRECTION == 1)) {
 			if (y < PLAYER_MAXY)
-				y += movementSpeed * delta;
-			currentFrame = AssetLoader.pUp1;
+				y += moveSpeed * delta;
+			sprite = AssetLoader.pUp1;
 
 		}
 		if ((DIRECTION == 2)) {
 			if (x < PLAYER_MAXX)
-				x += movementSpeed * delta;
-			currentFrame = AssetLoader.pRight1;
+				x += moveSpeed * delta;
+			sprite = AssetLoader.pRight1;
 
 		}
 		if ((DIRECTION == 3)) {
 			if (y > PLAYER_MINY)
-				y -= movementSpeed * delta;
-			currentFrame = AssetLoader.pDown1;
+				y -= moveSpeed * delta;
+			sprite = AssetLoader.pDown1;
 
 		}
 		if ((DIRECTION == 4)) {
 			if (x >= PLAYER_MINX)
-				x -= movementSpeed * delta;
-			currentFrame = AssetLoader.pLeft1;
+				x -= moveSpeed * delta;
+			sprite = AssetLoader.pLeft1;
 
 		}
-	}
-
-	public boolean isCellBLocked(float x, float y) {
-
-		Cell cell = collisionlayer.getCell(
-				(int) (x / (collisionlayer.getTileWidth())),
-				(int) (y / (collisionlayer.getTileHeight())));
-
-		return cell != null && cell.getTile() != null
-				&& cell.getTile().getProperties().containsKey("blocked");
-	}
-
-	public float getX() {
-		return x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public TextureRegion getSprite() {
-		return currentFrame;
 	}
 }
