@@ -31,7 +31,7 @@ public class Player {
 	public static float movementSpeed = 70; // needs to be made screen
 											// independant to
 
-	private TextureRegion sprite;
+	private TextureRegion currentFrame;
 
 	private Vector3 screencoordinates, worldcoordinates;
 
@@ -39,7 +39,7 @@ public class Player {
 		this.map = map;
 		this.cam = cam;
 		this.collisionlayer = layer;
-		sprite = AssetLoader.pDown1;
+		currentFrame = AssetLoader.pDown1;
 		sideoffsetPlayer = 1;
 		topoffsetPlayer = 6; // adjustment for collisiondetection: gives a
 								// slightly "layered" 3d effect
@@ -140,25 +140,25 @@ public class Player {
 		if ((DIRECTION == 1)) {
 			if (y < PLAYER_MAXY)
 				y += movementSpeed * delta;
-			sprite = AssetLoader.pUp1;
+			currentFrame = AssetLoader.pUp1;
 
 		}
 		if ((DIRECTION == 2)) {
 			if (x < PLAYER_MAXX)
 				x += movementSpeed * delta;
-			sprite = AssetLoader.pRight1;
+			currentFrame = AssetLoader.pRight1;
 
 		}
 		if ((DIRECTION == 3)) {
 			if (y > PLAYER_MINY)
 				y -= movementSpeed * delta;
-			sprite = AssetLoader.pDown1;
+			currentFrame = AssetLoader.pDown1;
 
 		}
 		if ((DIRECTION == 4)) {
 			if (x >= PLAYER_MINX)
 				x -= movementSpeed * delta;
-			sprite = AssetLoader.pLeft1;
+			currentFrame = AssetLoader.pLeft1;
 
 		}
 	}
@@ -182,6 +182,6 @@ public class Player {
 	}
 
 	public TextureRegion getSprite() {
-		return sprite;
+		return currentFrame;
 	}
 }
