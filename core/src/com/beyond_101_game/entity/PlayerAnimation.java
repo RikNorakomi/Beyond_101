@@ -26,13 +26,10 @@ public class PlayerAnimation {
 	private static int UP_X_MULTIPLIER = 1;
 	private static int LEFT_X_MULTIPLIER = 2;
 	private static int RIGHT_X_MULTIPLIER = 3;
-	
-	// Player animation frame duration.
-	public static float PLAYER_FRAME_DURATION = 0.20f;
 
 	public static void load() {
 		// Get Player Texture
-		playerTextures = new Texture(Gdx.files.internal("entities/player.png"));
+		playerTextures = new Texture(Gdx.files.internal("player.png"));
 		playerTextures.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
 		// Load player animation for up, down, left, right directions.
@@ -53,7 +50,7 @@ public class PlayerAnimation {
 	 * @return Animation object.
 	 */
 	private static Animation getPlayerAnimation(int multiplier) {
-		Animation animation = new Animation(PLAYER_FRAME_DURATION, getTextureRegion(multiplier));
+		Animation animation = new Animation(0.06f, getTextureRegion(multiplier));
 		return animation;
 	}
 
@@ -90,10 +87,12 @@ public class PlayerAnimation {
 	 * @param x
 	 * @param y
 	 */
-	public static void animatePlayer(SpriteBatch spriteBatch, Animation animation, float x, float y) {
+	public static void animatePlayer(Animation animation, float x, float y) {
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = animation.getKeyFrame(stateTime, true);
+		spriteBatch.begin();
 		spriteBatch.draw(currentFrame, x, y);
+		spriteBatch.end();
 	}
 
 	public static void dispose() {
