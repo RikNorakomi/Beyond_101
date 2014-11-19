@@ -95,6 +95,11 @@ public class GameScreen implements Screen {
 	}
 	
 	private void keyboardInput() {
+		// 1 = up
+		// 2 = right
+		// 3 = down
+		// 4 = left
+		
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 			DIRECTION = 4;
 			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerLeftAnimation, player.getX(), player.getY());
