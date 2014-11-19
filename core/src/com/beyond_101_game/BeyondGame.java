@@ -1,6 +1,7 @@
 package com.beyond_101_game;
 
 import com.badlogic.gdx.Game;
+import com.beyond_101_game.entity.PlayerAnimation;
 import com.beyond_101_game.graphics.GameScreen;
 import com.beyond_101_game.graphics.LogoSplashScreen;
 import com.beyond_101_game.helpers.AssetLoader;
@@ -19,6 +20,7 @@ public class BeyondGame extends Game {
 		 
 		assetLoader = new AssetLoader();
 		assetLoader.load();
+		PlayerAnimation.load();
 		
 		setScreen(gameScreen);
 	}
