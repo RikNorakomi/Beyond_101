@@ -18,12 +18,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.beyond_101_game.BeyondGame;
 import com.beyond_101_game.entity.Player;
 import com.beyond_101_game.entity.PlayerAnimation;
+import com.beyond_101_game.entity.monsters.Crab;
 
 public class GameScreen implements Screen {
 	
 	BeyondGame game;
 	
 	private Player player;
+	
+	private Crab crab;
 	
 	public static TiledMap map;
 	public TiledMapTileLayer tilelayer;
@@ -52,6 +55,7 @@ public class GameScreen implements Screen {
 		sb.setProjectionMatrix(cam.combined);
 		tilelayer = (TiledMapTileLayer) map.getLayers().get("Ground");
 		player = new Player(map, tilelayer, cam);
+		crab = new Crab(map, tilelayer, cam);
 		
 		//Gdx.input.setInputProcessor(new InputHandler(this, player));
 	}
@@ -69,6 +73,7 @@ public class GameScreen implements Screen {
 		sb.begin();			
 			if (DEBUG) showDebugInfo();
 			player.render(sb);
+			crab.render(sb);
 			keyboardInput();
 		sb.end();
 		update(delta);
@@ -76,6 +81,7 @@ public class GameScreen implements Screen {
 		
 	private void update(float delta) {
 		player.update(delta);
+		crab.update(delta);
 		cam.update();
 	}
 	
@@ -113,6 +119,10 @@ public class GameScreen implements Screen {
 			DIRECTION = 1;
 			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerUpAnimation, player.getX(), player.getY());
 		} else DIRECTION = 0;
+		
+		if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+			Gdx.app.log("Beyond", "ATTACKING");
+		}
 		
 		if(Gdx.input.isKeyJustPressed(Keys.F9)) {
 			if (DEBUG){DEBUG=false;} else DEBUG=true;

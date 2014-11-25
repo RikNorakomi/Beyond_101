@@ -64,7 +64,6 @@ public class Player extends Entity {
 		screenCoords.y = y;
 		worldCoords.x = x + SCROLLTRACKER_X;
 		worldCoords.y = y + SCROLLTRACKER_Y;
-
 	}
 
 	// todo:fix player direction bug

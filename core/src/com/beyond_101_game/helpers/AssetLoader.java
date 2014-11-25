@@ -15,9 +15,15 @@ public class AssetLoader {
 								pLeft1, pLeft2, pLeft3,
 								pRight1, pRight2, pRight3;
 	
+	public static Texture enemies;
+	public static TextureRegion crab;
+	
 	public void load() {
 		playerTextures = new Texture(Gdx.files.internal("entities/player.png"));
 			playerTextures.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+			
+		enemies = new Texture(Gdx.files.internal("entities/crab.png"));
+			enemies.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 			
 		pDown1 = new TextureRegion(playerTextures, 0, 0, 14, 19);
 			pDown2 = new TextureRegion(playerTextures, 0, 19, 14, 19);
@@ -28,9 +34,12 @@ public class AssetLoader {
 		
 		TextureRegion[] playerDown = { pDown1, pDown2, pDown3 };
 			playerAnimation = new Animation(0.06f, playerDown); 
+			
+		crab = new TextureRegion(enemies, 0, 0, 16, 16);
 	}
 	
 	public static void dispose() {
 		playerTextures.dispose();
+		enemies.dispose();
 	}
 }
