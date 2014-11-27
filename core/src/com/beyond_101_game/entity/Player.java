@@ -46,8 +46,6 @@ public class Player extends Entity {
 	}
 
 	public void update(float delta) {
-		
-		
 		handleMovement(delta);
 		handleCoordinates();
 		super.update(delta);
@@ -73,24 +71,28 @@ public class Player extends Entity {
 			if (y < PLAYER_MAXY)
 				y += moveSpeed * delta;
 			sprite = AssetLoader.pUp1;
+			PlayerAnimation.animatePlayer(PlayerAnimation.playerUpAnimation, screenCoords.x, screenCoords.y);
 
 		}
 		if ((DIRECTION == 2)) {
 			if (x < PLAYER_MAXX)
 				x += moveSpeed * delta;
 			sprite = AssetLoader.pRight1;
+			PlayerAnimation.animatePlayer(PlayerAnimation.playerRightAnimation, screenCoords.x, screenCoords.y);
 
 		}
 		if ((DIRECTION == 3)) {
 			if (y > PLAYER_MINY)
 				y -= moveSpeed * delta;
 			sprite = AssetLoader.pDown1;
+			PlayerAnimation.animatePlayer(PlayerAnimation.playerDownAnimation, screenCoords.x, screenCoords.y);
 
 		}
 		if ((DIRECTION == 4)) {
 			if (x >= PLAYER_MINX)
 				x -= moveSpeed * delta;
 			sprite = AssetLoader.pLeft1;
+			PlayerAnimation.animatePlayer(PlayerAnimation.playerLeftAnimation, screenCoords.x, screenCoords.y);
 
 		}
 	}

@@ -62,15 +62,17 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(25f, 25f, 35f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		//keyboardInput();
+		keyboardInput();
 		renderMap(delta);
 	//	sb.setProjectionMatrix(cam.combined);
 		// if you combine camera players coordinates become world coordinates and not screen coordinates
-		sb.begin();			
+		sb.begin();		
+		
 			if (DEBUG) showDebugInfo();
 			player.render(sb);
-			keyboardInput();
+			
 		sb.end();
+		PlayerAnimation.spriteBatch = sb;
 		update(delta);
 	}
 		
@@ -102,16 +104,16 @@ public class GameScreen implements Screen {
 		
 		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 			DIRECTION = 4;
-			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerLeftAnimation, player.getX(), player.getY());
+			
 		} else if(Gdx.input.isKeyPressed(Keys.DOWN)) {
 			DIRECTION = 3;
-			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerDownAnimation, player.getX(), player.getY());
+			
 		} else if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			DIRECTION = 2;
-			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerRightAnimation, player.getX(), player.getY());
+			
 		} else if(Gdx.input.isKeyPressed(Keys.UP)) {
 			DIRECTION = 1;
-			PlayerAnimation.animatePlayer(sb, PlayerAnimation.playerUpAnimation, player.getX(), player.getY());
+			
 		} else DIRECTION = 0;
 		
 		if(Gdx.input.isKeyJustPressed(Keys.F9)) {

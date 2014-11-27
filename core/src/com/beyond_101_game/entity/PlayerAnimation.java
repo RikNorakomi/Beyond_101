@@ -90,10 +90,12 @@ public class PlayerAnimation {
 	 * @param x
 	 * @param y
 	 */
-	public static void animatePlayer(SpriteBatch spriteBatch, Animation animation, float x, float y) {
+	public static void animatePlayer(Animation animation, float x, float y) {
 		stateTime += Gdx.graphics.getDeltaTime();
 		currentFrame = animation.getKeyFrame(stateTime, true);
+		spriteBatch.begin();
 		spriteBatch.draw(currentFrame, x, y);
+		spriteBatch.end();
 	}
 
 	public static void dispose() {
